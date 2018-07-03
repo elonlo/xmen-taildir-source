@@ -1,2 +1,7 @@
 # xmen-taildir-source
 在官方flume-taildir-source的基础上修改和优化，适用于以rsync、scp等同步日志导致同一文件iNode会变化的场景
+
+主要修改以下几点：
+- 修改使用文件全路径替换inode作为TailFiles的key，避免同一文件inode变化导致数据重复收集
+- 添加侦听目录路径通配符功能，支持在不重启Flume的情况下自动添加匹配的新目录
+- 添加TailFiles的文件过期检查，当同步目录删除之前的日志文件时则标记该文件为过期文件，稍后自动检查从内存移除
